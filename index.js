@@ -52,8 +52,13 @@ app.post('/api/computer_disconnects', (req, res) => {
     const sortedDisconnects = Object.entries(computerDisconnectCounts).sort(
         (a, b) => b[1] - a[1]
     );
-
-    res.send(sortedDisconnects);
+   
+    const convertedData = sortedDisconnects.map(([computerName, disconnected]) => ({
+         Computer_name: computerName,
+         no_of_disconnected: disconnected,
+    }));
+    
+    res.send(convertedData);
 });
 
 const PORT = process.env.PORT || 3000;
